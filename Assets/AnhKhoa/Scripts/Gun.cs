@@ -7,7 +7,7 @@ public class Gun : MonoBehaviour
 {
 
     [Header("References")]
-    [SerializeField] public Weapon gunData;
+    [SerializeField] private Weapon gunData;
     [SerializeField] private Transform cam;
     [SerializeField] private Transform camFirst;
     [SerializeField] private Transform camThird;
@@ -28,21 +28,17 @@ public class Gun : MonoBehaviour
     {
         if (!gunData.reloading && this.gameObject.activeSelf)
             StartCoroutine(Reload());
-        Debug.Log("StartReload");
     }
 
     private IEnumerator Reload()
     {
         gunData.reloading = true;
 
-        gunData.currentAmmor = 20;
+        yield return new WaitForSeconds(gunData.ReloadSpeed);
 
-        yield return new WaitForSeconds(1f);
-
+        gunData.currentAmmor = gunData.Amminition;
 
         gunData.reloading = false;
-
-
     }
 
     private bool CanShoot() => !gunData.reloading && timeSinceLastShot > 1f / (gunData.RateOfFire / 60f);
@@ -56,16 +52,16 @@ public class Gun : MonoBehaviour
 
                SpawnPrefab();
 
-                //if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, 1000f))
-                //{
-                //    IDamagable damageable = hitInfo.transform.GetComponent<IDamagable>();
+                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, 1000f))
+                {
+                    IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
 
-                //    // Check if damageable is not null before calling TakeDamage
-                //    if (damageable != null)
-                //    {
-                //        damageable.TakeDamage(gunData.Damage);
-                //    }
-                //}
+                    // Check if damageable is not null before calling TakeDamage
+                    if (damageable != null)
+                    {
+                        damageable.TakeDamage(gunData.Damage);
+                    }
+                }
 
                 gunData.currentAmmor--;
                 timeSinceLastShot = 0;
@@ -84,8 +80,7 @@ public class Gun : MonoBehaviour
         }
         else
             cam = camThird;
-        Quaternion quaternion = bulletPrefab.transform.rotation;
-        GameObject bullet = Instantiate(bulletPrefab, cam.position, quaternion);
+        GameObject bullet = Instantiate(bulletPrefab, cam.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().Initialize(cam);
         Debug.Log("Spawn");
     }
