@@ -3,15 +3,25 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tower
+  - BulletSnowPea
+  - Zombie
+  - Ghost
+  - Plant
+  - Chomper
+  - Enemy
+  - PlantField
+  - Ground
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 

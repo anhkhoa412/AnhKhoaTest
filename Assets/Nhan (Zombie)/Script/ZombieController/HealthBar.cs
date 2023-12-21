@@ -7,5 +7,6 @@ public class HealthBar : MonoBehaviour
     public void Updatebar(int currentBar, int maxBar)
     {
         fillBar.fillAmount = (float)currentBar / (float)maxBar;
+        Debug.Log("Ouch");
     }
 }

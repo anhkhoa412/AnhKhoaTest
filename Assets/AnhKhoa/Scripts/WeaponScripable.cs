@@ -23,6 +23,7 @@ public class Weapon: ScriptableObject
     private int maxDistance;
     [SerializeField]
     public float currentAmmor;
+
     public bool reloading;
     [SerializeField]
     public Sprite Sprite { get => sprite; set => sprite = value; }

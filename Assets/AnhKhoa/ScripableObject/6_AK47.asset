@@ -16,10 +16,10 @@ MonoBehaviour:
   nameGun: AK47
   sprite: {fileID: 21300000, guid: 476c0ea7f0431df4ab6b88ccfd3f6851, type: 3}
   damage:
-  - 5
-  rateOfFire: 600
+  - 20
+  rateOfFire: 300
   amminition: 20
-  reloadSpeed: 3
+  reloadSpeed: 1
   maxDistance: 10
   currentAmmor: 20
   reloading: 0
