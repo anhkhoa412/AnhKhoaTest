@@ -23,6 +23,7 @@ public class InteractableItemBase : MonoBehaviour
 
     public EItemType ItemType;
 
+    [SerializeField] public bool isUsing;
     public void Start()
     {
         Name = gun.NameGun;

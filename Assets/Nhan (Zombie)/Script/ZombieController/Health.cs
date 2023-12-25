@@ -24,22 +24,8 @@ public class Health : MonoBehaviour, IDamagable
         // anim = GetComponent<Animator>();
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("PlayerBullet"))
-        {
-            float[] damageValues = FindObjectOfType<Gun>().gunData.Damage; // Assuming Damage is a float array
-            int randomIndex = Random.Range(0, damageValues.Length);
-            int randomDamage = Mathf.RoundToInt(damageValues[randomIndex]);
-
-            TakeDamage(randomDamage);
-        }
-    }
-
-
     public void TakeDamage(int damage)
     {
-      
         if (!isInvincible)
             currentHealth -= damage;
         if (gameObject != null) 

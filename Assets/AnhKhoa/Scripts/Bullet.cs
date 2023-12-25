@@ -4,23 +4,27 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f; // Speed of the bullet
     public float lifetime = 2f; // Time before the bullet is destroyed
-    private Transform cam; // Reference to the camera
+    //private Transform cam; // Reference to the camera
 
-    public void Initialize(Transform cameraTransform)
-    {
-        cam = cameraTransform;
-    }
+    //public void Initialize(Transform cameraTransform)
+    //{
+    //    cam = cameraTransform;
+    //}
 
-    void Start()
+    private void Start()
     {
-        // Set the bullet to destroy itself after a certain time to avoid clutter
-        Destroy(gameObject, lifetime);
+        GetComponent<Rigidbody>().AddForce(transform.forward * speed);
     }
+    //void Start()
+    //{
+    //    // Set the bullet to destroy itself after a certain time to avoid clutter
+    //    Destroy(gameObject, lifetime);
+    //}
 
     void Update()
     {
         // Move the bullet forward
-        transform.Translate(cam.forward * speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.World);
     }
 
     void OnCollisionEnter(Collision collision)

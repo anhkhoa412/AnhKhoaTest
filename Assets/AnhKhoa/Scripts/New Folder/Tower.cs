@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tower : InventoryItemBase
 {
+    public string towerName;
     public GameObject tower;
     private Transform place;
 
@@ -13,8 +14,14 @@ public class Tower : InventoryItemBase
     }
     public void PLaceItem()
     {
-        
-        place = FindObjectOfType<PlayerPlantTower>().currentHighlightedPlantField.transform;
-        Instantiate(tower, place.position, Quaternion.identity);
+
+        if (!FindObjectOfType<PlayerPlantTower>().currentHighlightedPlantField.occupied && isUsing)
+        {
+            place = FindObjectOfType<PlayerPlantTower>().currentHighlightedPlantField.transform;
+            GameObject newPlant = Instantiate(tower, place.position, Quaternion.identity);
+            newPlant.GetComponent<Tower>().enabled = false;
+            FindObjectOfType<PlayerPlantTower>().currentHighlightedPlantField.occupied = true;
+        }
+
     }
 }

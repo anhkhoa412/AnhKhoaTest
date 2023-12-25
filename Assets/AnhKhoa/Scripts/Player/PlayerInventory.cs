@@ -17,8 +17,6 @@ public class PlayerInventory : MonoBehaviour
 
     public EItemType currentItemType;
 
-    public HUD Hud;
-
     [SerializeField] private Animator anim;
     // Use this for initialization
     void Start()
@@ -34,8 +32,6 @@ public class PlayerInventory : MonoBehaviour
     {
         
     }
-
-    #region Inventory
 
     private void Inventory_ItemRemoved(object sender, InventoryEventArgs e)
     {
@@ -56,10 +52,10 @@ public class PlayerInventory : MonoBehaviour
         currentItem.SetActive(active);
         currentItem.transform.parent = active ? Hand.transform : null;
 
-        if (currentItem != null)
-        {
-            anim.SetBool("gunHolding", true);
-        }
+        //if (currentItem != null)
+        //{
+        //    anim.SetBool("gunHolding", true);
+        //}
     }
 
 
@@ -71,6 +67,7 @@ public class PlayerInventory : MonoBehaviour
             if (mCurrentItem != null)
             {
                 SetItemActive(mCurrentItem, false);
+                mCurrentItem.isUsing = false;
             }
 
             InventoryItemBase item = e.Item;
@@ -79,53 +76,58 @@ public class PlayerInventory : MonoBehaviour
             SetItemActive(item, true);
 
             mCurrentItem = e.Item;
+            e.Item.isUsing = true;
+        }
+
+        if (e.Item.ItemType == EItemType.Weapon) {
+            anim.SetBool("gunHolding", true);
         }
 
     }
 
 
 
-    public void DropCurrentItem()
-    {
+    //public void DropCurrentItem()
+    //{
 
-        GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
+    //    GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
 
-        Inventory.RemoveItem(mCurrentItem);
+    //    Inventory.RemoveItem(mCurrentItem);
 
-        // Throw animation
-        Rigidbody rbItem = goItem.AddComponent<Rigidbody>();
-        if (rbItem != null)
-        {
-            rbItem.AddForce(transform.forward * 2.0f, ForceMode.Impulse);
+    //    // Throw animation
+    //    Rigidbody rbItem = goItem.AddComponent<Rigidbody>();
+    //    if (rbItem != null)
+    //    {
+    //        rbItem.AddForce(transform.forward * 2.0f, ForceMode.Impulse);
 
-            Invoke("DoDropItem", 0.25f);
-        }
-    }
+    //        Invoke("DoDropItem", 0.25f);
+    //    }
+    //}
 
-    public void DropAndDestroyCurrentItem()
-    {
-        GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
+    //public void DropAndDestroyCurrentItem()
+    //{
+    //    GameObject goItem = (mCurrentItem as MonoBehaviour).gameObject;
 
-        Inventory.RemoveItem(mCurrentItem);
+    //    Inventory.RemoveItem(mCurrentItem);
 
-        Destroy(goItem);
+    //    Destroy(goItem);
 
-        mCurrentItem = null;
-    }
+    //    mCurrentItem = null;
+    //}
 
-    public void DoDropItem()
-    {
+    //public void DoDropItem()
+    //{
 
-        if (mCurrentItem != null)
-        {
-            // Remove Rigidbody
-            Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
+    //    if (mCurrentItem != null)
+    //    {
+    //        // Remove Rigidbody
+    //        Destroy((mCurrentItem as MonoBehaviour).GetComponent<Rigidbody>());
 
-            mCurrentItem = null;
+    //        mCurrentItem = null;
 
 
-        }
-    }
+    //    }
+    //}
 
 
 
@@ -154,15 +156,15 @@ public class PlayerInventory : MonoBehaviour
     }
 
 
-    void FixedUpdate()
-    {
-        // Drop item
-        if (mCurrentItem != null && Input.GetKeyDown(KeyCode.R))
-        {
-            DropCurrentItem();
-        }
+    //void FixedUpdate()
+    //{
+    //    // Drop item
+    //    if (mCurrentItem != null && Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        DropCurrentItem();
+    //    }
 
-    }
+    //}
 
 
 
@@ -260,4 +262,3 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 }
-#endregion

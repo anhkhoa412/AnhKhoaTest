@@ -11,9 +11,6 @@ TagManager:
   - Plant
   - Chomper
   - Enemy
-  - PlantField
-  - Ground
-  - PlayerBullet
   layers:
   - Default
   - TransparentFX

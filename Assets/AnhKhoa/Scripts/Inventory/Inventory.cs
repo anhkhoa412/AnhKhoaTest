@@ -68,6 +68,7 @@ public class Inventory : MonoBehaviour
         }
 
         item.OnUse();
+        
     }
 
     public void RemoveItem(InventoryItemBase item)

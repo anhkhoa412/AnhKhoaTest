@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantField : MonoBehaviour
 {
-    [SerializeField] private bool occupied;
+    public bool occupied;
     // Start is called before the first frame update
     void Start()
     {

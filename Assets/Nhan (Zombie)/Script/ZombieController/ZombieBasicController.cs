@@ -51,8 +51,9 @@ public class ZombieBasicController : MonoBehaviour
         }
         
         Vector3 currentPosition = transform.position;
-       // float newPositionX = currentPosition.x + currentSpeed * Time.deltaTime;
+        //float newPositionX = currentPosition.x + currentSpeed * Time.deltaTime;
         //transform.position = new Vector3(newPositionX, transform.position.y, transform.position.z);
+
         float newPositionZ = currentPosition.z - currentSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x, transform.position.y, newPositionZ);
     }

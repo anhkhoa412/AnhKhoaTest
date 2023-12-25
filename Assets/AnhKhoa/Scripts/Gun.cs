@@ -8,9 +8,9 @@ public class Gun : MonoBehaviour
 
     [Header("References")]
     [SerializeField] public Weapon gunData;
-    [SerializeField] private Transform cam;
-    [SerializeField] private Transform camFirst;
-    [SerializeField] private Transform camThird;
+    [SerializeField] private Transform shootingPoint;
+    //[SerializeField] private Transform camFirst;
+    //[SerializeField] private Transform camThird;
     [SerializeField] private GameObject bulletPrefab;
 
     float timeSinceLastShot;
@@ -77,16 +77,10 @@ public class Gun : MonoBehaviour
     // In the Gun script
     private void SpawnPrefab()
     {
-        // Instantiate the bulletPrefab at the gun position
-        if (FindObjectOfType<CameraSwitcher>().isFirstPersonActive)
-        {
-            cam = camFirst;
-        }
-        else
-            cam = camThird;
+        
         Quaternion quaternion = bulletPrefab.transform.rotation;
-        GameObject bullet = Instantiate(bulletPrefab, cam.position, quaternion);
-        bullet.GetComponent<Bullet>().Initialize(cam);
+        GameObject bullet = Instantiate(bulletPrefab, shootingPoint.position, shootingPoint.rotation);
+        //bullet.GetComponent<Bullet>().Initialize(shootingPoint);
         Debug.Log("Spawn");
     }
 
@@ -96,7 +90,7 @@ public class Gun : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
 
-        Debug.DrawRay(cam.position, cam.forward * gunData.MaxDistance);
+        Debug.DrawRay(shootingPoint.position, shootingPoint.forward * gunData.MaxDistance);
     }
 
     private void OnGunShot() { }
